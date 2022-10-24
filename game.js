@@ -4,10 +4,20 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+const spanLives = document.querySelector('#lives');
+const spanTime = document.querySelector('#time');
+const spanRecord = document.querySelector('#record');
+const pResult = document.querySelector('#result');
 
 let canvasSize;
 let elementsSize;
 let level = 0;
+let lives = 3;
+
+let timeStart;
+let timePlayer;
+let timeInterval;
+
 
 const playerPosition = {
     x: undefined,
@@ -49,9 +59,17 @@ function startGame() {
         return;
     }
 
+    if (!timeStart) {
+        timeStart = Date.now();
+        timeInterval = setInterval(showTime, 100);
+        showRecord();
+    }
+
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     console.log({map, mapRows, mapRowCols});
+
+    showLives();
 
     enemyPositions = [];
     game.clearRect(0, 0, canvasSize, canvasSize);
@@ -113,13 +131,56 @@ function levelWin() {
     level ++;
     startGame();
 }
+
 function gameWin() {
     console.log('FELICITACIONES!! Terminaste el juego!')
+    clearInterval(timeInterval);
+
+    const recordTime = localStorage.getItem('record_time');
+    const timePlayer = Date.now() - timeStart;
+
+    if (recordTime) {
+        if (recordTime >= timePlayer) {
+            localStorage.setItem('record_time', timePlayer);
+            pResult.innerHTML = 'SUPERASTE EL RECORD! FELICITACIONES!!';
+        } else {
+            pResult.innerHTML = 'Lo siento, no superaste el record... Vuelve a Intentarlo!';
+        }
+    } else {
+        localStorage.setItem('record_time', timePlayer);
+        pResult.innerHTML = 'Primera vez? Muy bien! Ahora supera tu propio tiempo!';
+    }
+
+    console.log({recordTime, timePlayer});
 }
+
 function levelLost() {
+    lives --;
+
+    if (lives <= 0) {
+        level = 0;
+        lives = 3;
+        timeStart = undefined;
+    }
+
     playerPosition.x = undefined;
     playerPosition.y = undefined;
     startGame();
+}
+
+function showLives() {
+    const heartsArray = Array(lives).fill(emojis['HEART']); //[,,]
+
+    spanLives.innerHTML = "";
+    heartsArray.forEach(heart => spanLives.append(heart));
+}
+
+function showTime() {
+    spanTime.innerHTML = Date.now() - timeStart;
+}
+
+function showRecord() {
+    spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
 window.addEventListener('keydown', moveByKeys);
