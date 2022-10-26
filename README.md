@@ -1,7 +1,7 @@
 # Videogame
 🎮🕹
 
-Videojuego realizado con JavaScript, utilizando usando canvas, arreglos bidimensionales y aplicando estructuras de datos en un proyecto práctico.
+Videojuego realizado con JavaScript, utilizando canvas, arreglos bidimensionales y aplicando estructuras de datos en un proyecto práctico.
 
 ------------
 
