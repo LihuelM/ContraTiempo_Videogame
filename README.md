@@ -5,7 +5,7 @@ Videojuego realizado con JavaScript, utilizando canvas, arreglos bidimensionales
 
 ------------
 
-Demo del proyecto: https://lihuelm.github.io/Videogames/
+Demo del proyecto: https://lihuelm.github.io/ContraTiempo_Videogame/
 
 ------------
 ![image](https://user-images.githubusercontent.com/110037132/197694307-ec696437-df74-4a78-8f4f-dfa8c9d70001.png)
