@@ -165,7 +165,7 @@ function gameWin() {
     if (recordTime) {
         if (recordTime >= timePlayer) {
             localStorage.setItem('record_time', timePlayer);
-            pResult.innerHTML = 'SUPERASTE EL RECORD! FELICITACIONES!!';
+            pResult.innerHTML = 'NUEVO RECORD! FELICITACIONES!!';
         } else {
             pResult.innerHTML = 'Lo siento, no superaste el record... Vuelve a Intentarlo!';
         }
