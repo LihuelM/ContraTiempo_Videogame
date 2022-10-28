@@ -160,6 +160,7 @@ function showCollision() {
     game.clearRect(0, 0, canvasSize, canvasSize);
     game.font = '15px Quicksand';
     game.textAlign = 'center';
+    game.fillStyle = "white"
     if(lives > 1) {
         game.fillText('PERDISTE UNA VIDA 😲 VUELVE A INTENTARLO! 💪🏽', canvasSize/2, canvasSize/2);
     }
@@ -195,6 +196,7 @@ function showGemeWin() {
     game.clearRect(0, 0, canvasSize, canvasSize);
     game.font = '15px Quicksand';
     game.textAlign = 'center';
+    game.fillStyle = "white"
     game.fillText('🎉 Has llegado al último nivel!! 🎉 Has superado el record? 🥳', canvasSize/2, canvasSize/2);
     
 }
