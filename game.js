@@ -8,6 +8,7 @@ const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+const reset_button = document.querySelector('#reset_button');
 
 let canvasSize;
 let elementsSize;
@@ -17,7 +18,6 @@ let lives = 3;
 let timeStart;
 let timePlayer;
 let timeInterval;
-
 
 const playerPosition = {
     x: undefined,
@@ -127,9 +127,10 @@ const enemyCollision = enemyPositions.find(enemy => {
     return enemyCollisionX && enemyCollisionY;
 });
 
-if (enemyCollision) {
-    // console.log('Chocaste contra un enemigo! =(');
-    levelLost();
+    if (enemyCollision) {
+    // console.log('Chocaste contra un enemigo :(');
+    showCollision();
+    setTimeout(levelLost, 2000);
 }
 
     game.fillText(emojis['PLAYER'], playerPosition.x.toFixed(3), playerPosition.y);
@@ -155,8 +156,20 @@ function levelLost() {
     startGame();
 }
 
+function showCollision() {
+    game.clearRect(0, 0, canvasSize, canvasSize);
+    game.font = '15px Quicksand';
+    game.textAlign = 'center';
+    if(lives > 1) {
+        game.fillText('PERDISTE UNA VIDA 😲 VUELVE A INTENTARLO! 💪🏽', canvasSize/2, canvasSize/2);
+    }
+    else {
+        game.fillText('PERDISTE TODAS LAS VIDAS 😫 VUELVE AL INICIO 💔', canvasSize/2, canvasSize/2);
+    } 
+}
+
 function gameWin() {
-    console.log('FELICITACIONES!! Terminaste el juego!')
+    // console.log('FELICITACIONES!! Terminaste el juego!')
     clearInterval(timeInterval);
 
     const recordTime = localStorage.getItem('record_time');
@@ -174,7 +187,16 @@ function gameWin() {
         pResult.innerHTML = 'Primera vez? Muy bien! Ahora supera tu propio tiempo!';
     }
 
+    showGemeWin();
     console.log({recordTime, timePlayer});
+}
+
+function showGemeWin() {
+    game.clearRect(0, 0, canvasSize, canvasSize);
+    game.font = '15px Quicksand';
+    game.textAlign = 'center';
+    game.fillText('🎉 Has llegado al último nivel!! 🎉 Has superado el record? 🥳', canvasSize/2, canvasSize/2);
+    
 }
 
 function showLives() {
@@ -243,4 +265,10 @@ function moveDown() {
     playerPosition.y += elementsSize;
     startGame();
     }
+}
+
+reset_button.addEventListener('click', resetGame);
+
+function resetGame() {
+    location.reload();
 }
